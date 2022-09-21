@@ -1,0 +1,7 @@
+{
+    "scheduleConfig": {
+        "start": 7,
+        "end": 18,
+        "slotsPerHour": 2
+    }
+}
