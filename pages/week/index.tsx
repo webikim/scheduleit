@@ -5,6 +5,7 @@ import fs from "fs/promises";
 
 import Head from "next/head";
 import Image from "next/image";
+import WeekTable from './WeekTabke';
 
 interface Props {
     scheduleConfig: {
@@ -16,7 +17,6 @@ interface Props {
 
 function Week(props) {
     const { scheduleConfig } = props;
-    console.log(props);
     return (
         <div>
             <Head>
@@ -29,7 +29,7 @@ function Week(props) {
             </Head>
 
             <main>
-
+                <WeekTable {...scheduleConfig} date={Date()}></WeekTable>
             </main>
 
             <footer>
