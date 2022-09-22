@@ -5,6 +5,8 @@ import fs from "fs/promises";
 
 import Head from "next/head";
 import Image from "next/image";
+import { Container } from '@mui/material';
+
 import WeekTable from './WeekTabke';
 
 interface Props {
@@ -29,7 +31,9 @@ function Week(props) {
             </Head>
 
             <main>
-                <WeekTable {...scheduleConfig} date={Date()}></WeekTable>
+                <Container sx={{ marginTop: '2em' }}>
+                    <WeekTable {...scheduleConfig} date={Date()}></WeekTable>
+                </Container>
             </main>
 
             <footer>
