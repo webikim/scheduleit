@@ -26,9 +26,11 @@ const formatDate = (date: Date) => {
 }
 
 const WeekName = styled(Grid)<GridProps>(({ theme }) => ({
-    background: titleColor,
+    background: theme.palette.primary.dark,
+    color: theme.palette.primary.contrastText,
     borderRight: "1px solid gray",
-    height: "1.5em",
+    borderBottom: "1px solid gray",
+    height: "1.5em"
 }));
 
 const WeekDate = styled(Grid)<GridProps>(({ theme }) => ({ }));
@@ -49,16 +51,16 @@ const renderWeekHeader = (weekData: WeekData[]) => {
     weekData.map((each) => {
         weekHeader.push(
             <Grid item md={1.6} sm={1.6} xs={1.6}>
-                <WeekName>
-                    <Typography fontWeight={700} align="center">
-                        {WeekString[each.day]}
-                    </Typography>
-                </WeekName>
                 <WeekDate>
-                    <Typography fontSize="small" align="center">
+                    <Typography align="center">
                         {formatDate(each.date)}
                     </Typography>
                 </WeekDate>
+                <WeekName>
+                    <Typography align="center">
+                        {WeekString[each.day]}
+                    </Typography>
+                </WeekName>
             </Grid>
         );
     });
@@ -95,12 +97,12 @@ const WeekTable = (props: WeekProps) => {
         <>
             <Grid container>
                 <Grid item md={0.8} sm={0.8} xs={0.8}>
+                    <WeekDate>
+                        <Typography align="center">Date</Typography>
+                    </WeekDate>
                     <WeekName>
                         <Typography sx={{ width: "100%", paddingTop: "2px"}} fontSize="small" fontWeight={700} align="center">Time</Typography>
                     </WeekName>
-                    <WeekDate>
-                        <Typography>&nbsp;</Typography>
-                    </WeekDate>
                 </Grid>
                 { renderWeekHeader(weekData) }
             </Grid>

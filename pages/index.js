@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { Box } from '@mui/material';
 import styles from '../styles/Home.module.css';
 import TopBar from '../components/TopBar';
+import AppBarDemo from '../demo/AppBarDemo';
 
 export default function Home() {
     return (

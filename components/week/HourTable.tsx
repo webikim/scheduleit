@@ -1,7 +1,5 @@
 import React, { Children } from "react";
-import styled from "@emotion/styled";
-import { Box, BoxProps, Grid, GridProps, Typography, TypographyProps } from "@mui/material";
-import { deepPurple } from "@mui/material/colors";
+import { Box, BoxProps, Grid, GridProps, styled, Typography, TypographyProps } from "@mui/material";
 
 class HourInDay {
     hour: number;
@@ -13,11 +11,10 @@ class HourInDay {
     }
 }
 
-const titleColor = deepPurple[200];
-
 const HourTitle = styled(Grid)<GridProps>(({ theme }) => ({
-    background: titleColor,
-    borderBottom: "1px solid gray",
+    background: theme.palette.primary.dark,
+    color: theme.palette.primary.contrastText,
+    borderBottom: "1px solid gray"
 }));
 
 const SlotBox = styled(Box)<BoxProps>(({ theme }) => ({
@@ -50,7 +47,7 @@ export const renderHourTitles = (hourData: HourInDay[]) => {
             {hourData.map((hour, key) => {
                 return (
                     <HourTitle item key={key}>
-                        <Typography align="center" sx={{ fontWeight: 700 }}>
+                        <Typography align="center">
                             {hour.hour}
                         </Typography>
                     </HourTitle>

@@ -5,9 +5,10 @@ import fs from "fs/promises";
 
 import Head from "next/head";
 import Image from "next/image";
-import { Container } from '@mui/material';
+import { Box, Container } from '@mui/material';
 
 import WeekTable from '../../components/week/WeekTabke';
+import TopBar, { paddingAppSpace } from '../../components/TopBar';
 
 interface Props {
     scheduleConfig: {
@@ -31,9 +32,14 @@ function Week(props) {
             </Head>
 
             <main>
-                <Container sx={{ marginTop: '2em' }}>
-                    <WeekTable {...scheduleConfig} date={Date()}></WeekTable>
-                </Container>
+                <Box sx={{ display: 'flex', height: "100vh" }}>
+                    <TopBar>
+                    </TopBar>
+                    <Container sx={{ marginTop: '2em', flexGrow: 1 }}>
+                        { paddingAppSpace() }
+                        <WeekTable {...scheduleConfig} date={Date()}></WeekTable>
+                    </Container>
+                </Box>
             </main>
 
             <footer>
