@@ -7,7 +7,7 @@ import Head from "next/head";
 import Image from "next/image";
 import { Container } from '@mui/material';
 
-import WeekTable from './WeekTabke';
+import WeekTable from '../../components/week/WeekTabke';
 
 interface Props {
     scheduleConfig: {

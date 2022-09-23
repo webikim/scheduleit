@@ -21,7 +21,10 @@ const HourTitle = styled(Grid)<GridProps>(({ theme }) => ({
 }));
 
 const SlotBox = styled(Box)<BoxProps>(({ theme }) => ({
+    display: "flex",
+    justifyContent: "center",
     height: "1.555em",
+    borderRight: "1px solid lightgray",
 }));
 
 const SlotText = styled(Typography)<TypographyProps>(({ theme }) => ({
@@ -68,7 +71,7 @@ const setSlots = (props: HourTableProps, hours: HourInDay[]) => {
 const renderSlots = (data: HourInDay) => {
     let slots: JSX.Element[] = [];
     const formatter = Intl.NumberFormat("en", { minimumIntegerDigits: 2 })
-    data.slots.map((each) => {
+    data.slots.map((each, key) => {
         slots.push(
             <SlotText>:{formatter.format(each)}</SlotText>
         )
