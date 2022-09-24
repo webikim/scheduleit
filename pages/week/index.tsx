@@ -4,47 +4,27 @@ import path from "path";
 import fs from "fs/promises";
 
 import Head from "next/head";
-import Image from "next/image";
-import { Box, Container } from '@mui/material';
 
 import WeekTable from '../../components/week/WeekTabke';
-import TopBar, { paddingAppSpace } from '../../components/TopBar';
 
-interface Props {
+interface WeekProps {
     scheduleConfig: {
         start: number;
         end: number;
-        slotPerHour: number;
+        slotsPerHour: number;
     };
 }
 
-function Week(props) {
+function Week(props: WeekProps) {
     const { scheduleConfig } = props;
     return (
-        <div>
+        <>
             <Head>
-                <title>Schedule a Week</title>
-                <meta
-                    name="description"
-                    content="to schedule in a week"
-                />
-                <link rel="icon" href="/favicon.ico" />
+                <title>Schedule my works</title>
             </Head>
 
-            <main>
-                <Box sx={{ display: 'flex', height: "100vh" }}>
-                    <TopBar>
-                    </TopBar>
-                    <Container sx={{ marginTop: '2em', flexGrow: 1 }}>
-                        { paddingAppSpace() }
-                        <WeekTable {...scheduleConfig} date={Date()}></WeekTable>
-                    </Container>
-                </Box>
-            </main>
-
-            <footer>
-            </footer>
-        </div>
+            <WeekTable {...scheduleConfig} date={new Date()}></WeekTable>
+        </>
     );
 }
 

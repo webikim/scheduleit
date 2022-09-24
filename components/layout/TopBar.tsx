@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 import React from 'react';
 
 export const menus = ['TimeTable', 'Schedule'];
-export const pages = ['/week', '/schedule'];
+export const pages = ['/table', '/week'];
 
 const DrawerHeader = styled('div')(({ theme }) => ({
     display: 'flex',
