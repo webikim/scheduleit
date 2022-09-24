@@ -1,11 +1,14 @@
 import { Box, Button, Container, Grid, Link, TextField, Typography } from '@mui/material';
-import React from 'react';
+import React, { useContext } from 'react';
+import NotificationContext from '../../store/notification-context';
 
 interface SignUpProps {
     setLogin: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const SignUp = (props: SignUpProps) => {
+    const notificationCtx = useContext(NotificationContext);
+
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
@@ -31,10 +34,21 @@ const SignUp = (props: SignUpProps) => {
         });
 
         if (!response.ok) {
-            console.log('signup request was failed.');
+            let message = 'Signup failed.';
+            if (response.status === 422) {
+                message = 'Same email alredy signed up.';
+            }
+            notificationCtx.showNotification({
+                message: message,
+                status: 'error'
+            })
             return;
         }
 
+        notificationCtx.showNotification({
+            message: 'Signup success.',
+            status: 'success'
+        })
         console.log('success ', await response.json());
     }
     return (

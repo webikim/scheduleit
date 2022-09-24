@@ -1,18 +1,18 @@
 import { Box, Button, Checkbox, Container, FormControlLabel, Grid, Link, TextField, Typography } from '@mui/material';
-import React from 'react';
+import React, { useContext } from 'react';
+import NotificationContext from '../../store/notification-context';
 
 interface SignInProps {
     setLogin: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const SignIn = (props: SignInProps) => {
+    const notificationCtx = useContext(NotificationContext);
+
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
+
         const data = new FormData(event.currentTarget);
-        console.log({
-            email: data.get('email'),
-            password: data.get('password'),
-        });
         const email = data.get('email');
         const password = data.get('password');
 
@@ -28,9 +28,18 @@ const SignIn = (props: SignInProps) => {
         });
 
         if (!response.ok) {
-            console.log('signin request was failed.');
+            notificationCtx.showNotification({
+                message: 'Signin failed.',
+                status: 'error'
+            })
+
             return;
         }
+
+        notificationCtx.showNotification({
+            message: 'Signin success',
+            status: 'success'
+        })
 
         console.log('success ', await response.json());
     }

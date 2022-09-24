@@ -16,6 +16,7 @@ export default class CustomDocument extends Document {
                 </Head>
                 <body>
                     <Main />
+                    <div id="notifications"></div>
                 </body>
                 <NextScript />
             </Html>

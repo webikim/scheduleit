@@ -24,7 +24,7 @@ const handler = async (req: SignupApiRequest, res: SignupApiResponse) => {
     const { body } = req;
     const { fullname, email, password } = body;
     if (!email || !email.includes('@') || !password || password.trim().length < 8) {
-        res.status(422).json({ message: 'Invalid data' });
+        res.status(400).json({ message: 'Invalid data' });
         return;
     }
 
