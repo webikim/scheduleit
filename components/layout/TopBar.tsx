@@ -57,7 +57,7 @@ const TopBar = (props: TopBarProp) => {
                         </Button>
                         ))}
                     </Box>
-                    <Button color='inherit' >Login</Button>
+                    <Button color='inherit' onClick={ () => router.push('/auth') }>Login</Button>
                     <Button color='inherit' >Logout</Button>
                 </Toolbar>
             </AppBar>

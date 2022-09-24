@@ -14,24 +14,33 @@ class HourInDay {
 const HourTitle = styled(Grid)<GridProps>(({ theme }) => ({
     background: theme.palette.primary.dark,
     color: theme.palette.primary.contrastText,
-    borderBottom: "1px solid gray"
+    borderBottom: "1px solid gray",
+    height: "2em"
 }));
 
 const SlotBox = styled(Box)<BoxProps>(({ theme }) => ({
     display: "flex",
-    justifyContent: "center",
-    height: "1.555em",
+    height: "2em",
     borderRight: "1px solid lightgray",
 }));
 
+const CenteredText = styled(Typography)<TypographyProps>(({ theme }) => ({
+    display: "flex",
+    height: "100%",
+    alignItems: "center",
+    justifyContent: "center"
+}));
+
 const SlotText = styled(Typography)<TypographyProps>(({ theme }) => ({
-    display: "inline",
-    marginLeft: "1em",
-    textDecoration: "underline",
-    textDecorationColor: "lightgray",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    width: "50%",
     "&:hover": {
         cursor: "pointer",
-        textDecorationColor: "gray"
+        textDecoration: "underline",
+        textDecorationColor: "gray",
+        fontWeight: 700
     }
 }));
 
@@ -47,9 +56,9 @@ export const renderHourTitles = (hourData: HourInDay[]) => {
             {hourData.map((hour, key) => {
                 return (
                     <HourTitle item key={key}>
-                        <Typography align="center">
+                        <CenteredText>
                             {hour.hour}
-                        </Typography>
+                        </CenteredText>
                     </HourTitle>
                 );
             })}

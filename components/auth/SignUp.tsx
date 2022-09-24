@@ -2,19 +2,47 @@ import { Box, Button, Container, Grid, Link, TextField, Typography } from '@mui/
 import React from 'react';
 
 interface SignUpProps {
-
+    setLogin: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const SignUp = (props: SignUpProps) => {
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        const data = new FormData(event.currentTarget);
+        console.log({
+            fullname: data.get("fullname"),
+            email: data.get('email'),
+            password: data.get('password'),
+        });
+        const fullname = data.get('fullname');
+        const email = data.get('email');
+        const password = data.get('password');
 
+        const response = await fetch('/api/auth/signup', {
+            method: 'POST',
+            body: JSON.stringify({
+                fullname: fullname,
+                email: email,
+                password: password
+            }),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+
+        if (!response.ok) {
+            console.log('signup request was failed.');
+            return;
+        }
+
+        console.log('success ', await response.json());
     }
     return (
         <>
             <Container component="main" maxWidth="xs">
                 <Box
                     sx={{
-                        marginTop: 8,
+                        marginTop: 3,
                         display: "flex",
                         flexDirection: "column",
                         alignItems: "center",
@@ -73,7 +101,7 @@ const SignUp = (props: SignUpProps) => {
                         </Button>
                         <Grid container justifyContent="flex-end">
                             <Grid item>
-                                <Link href="#" variant="body2" >
+                                <Link href="#" variant="body2" onClick={ () => props.setLogin(true) }>
                                     Already have an account? Sign in
                                 </Link>
                             </Grid>

@@ -2,12 +2,37 @@ import { Box, Button, Checkbox, Container, FormControlLabel, Grid, Link, TextFie
 import React from 'react';
 
 interface SignInProps {
-
+    setLogin: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const SignIn = (props: SignInProps) => {
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        const data = new FormData(event.currentTarget);
+        console.log({
+            email: data.get('email'),
+            password: data.get('password'),
+        });
+        const email = data.get('email');
+        const password = data.get('password');
 
+        const response = await fetch('/api/auth/signin', {
+            method: 'POST',
+            body: JSON.stringify({
+                email: email,
+                password: password
+            }),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+
+        if (!response.ok) {
+            console.log('signin request was failed.');
+            return;
+        }
+
+        console.log('success ', await response.json());
     }
     return (
         <>
@@ -68,7 +93,7 @@ const SignIn = (props: SignInProps) => {
                                 </Link>
                             </Grid> */}
                             <Grid item>
-                                <Link href="#" variant="body2">
+                                <Link href="#" variant="body2" onClick={ () => props.setLogin(false) }>
                                     {"Don't have an account? Sign Up"}
                                 </Link>
                             </Grid>

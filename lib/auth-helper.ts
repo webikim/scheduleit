@@ -8,3 +8,8 @@ export const hashNsalt = async (password: string) => {
     const hash = await scrypt(password, salt, 32) as Buffer;
     return salt + '.' + hash.toString('hex');
 }
+
+export const getHash = async (password: string, salt: string) => {
+    const hash = await scrypt(password, salt, 32) as Buffer;
+    return hash.toString('hex');
+}
