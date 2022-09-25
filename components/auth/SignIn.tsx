@@ -1,6 +1,8 @@
 import { Box, Button, Checkbox, Container, FormControlLabel, Grid, Link, TextField, Typography } from '@mui/material';
 import React, { useContext } from 'react';
+import { signIn } from 'next-auth/react';
 import NotificationContext from '../../store/notification-context';
+import { useRouter } from 'next/router';
 
 interface SignInProps {
     setLogin: React.Dispatch<React.SetStateAction<boolean>>;
@@ -8,6 +10,7 @@ interface SignInProps {
 
 const SignIn = (props: SignInProps) => {
     const notificationCtx = useContext(NotificationContext);
+    const router = useRouter();
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -16,16 +19,11 @@ const SignIn = (props: SignInProps) => {
         const email = data.get('email');
         const password = data.get('password');
 
-        const response = await fetch('/api/auth/signin', {
-            method: 'POST',
-            body: JSON.stringify({
-                email: email,
-                password: password
-            }),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
+        const response = await signIn('credentials', {
+            redirect: false,
+            email: email,
+            password: password
+        })
 
         if (!response.ok) {
             notificationCtx.showNotification({
@@ -36,13 +34,14 @@ const SignIn = (props: SignInProps) => {
             return;
         }
 
+        router.replace("/");
+
         notificationCtx.showNotification({
             message: 'Signin success',
             status: 'success'
         })
-
-        console.log('success ', await response.json());
     }
+
     return (
         <>
             <Container component="main" maxWidth="xs">

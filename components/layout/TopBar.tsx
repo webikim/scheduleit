@@ -2,6 +2,7 @@ import { AppBar, Box, Button, IconButton, Menu, MenuItem, styled, Toolbar, Typog
 import MenuIcon from '@mui/icons-material/Menu';
 import { useRouter } from 'next/router'
 import React from 'react';
+import { useSession, signOut } from 'next-auth/react';
 
 export const menus = ['TimeTable', 'Schedule'];
 export const pages = ['/table', '/week'];
@@ -25,6 +26,7 @@ interface TopBarProp { }
 
 const TopBar = (props: TopBarProp) => {
     const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
+    const { data } = useSession();
     const router = useRouter();
 
     const handleClickMenu = (menuId: number) => () => {
@@ -48,17 +50,17 @@ const TopBar = (props: TopBarProp) => {
 
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                         {menus.map((menu, index) => (
-                        <Button
-                            key={index}
-                            onClick={handleClickMenu(index)}
-                            sx={{ my: 2, color: 'white', display: 'block' }}
-                        >
-                            {menu}
-                        </Button>
+                            <Button
+                                key={index}
+                                onClick={handleClickMenu(index)}
+                                sx={{ my: 2, color: 'white', display: 'block' }}
+                            >
+                                {menu}
+                            </Button>
                         ))}
                     </Box>
-                    <Button color='inherit' onClick={ () => router.push('/auth') }>Login</Button>
-                    <Button color='inherit' >Logout</Button>
+                    {!data && <Button color='inherit' onClick={() => router.push('/auth')}>Login</Button>}
+                    {data && <Button color='inherit' onClick={() => signOut() } >Logout</Button>}
                 </Toolbar>
             </AppBar>
         </>
