@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { hashNsalt } from "../../../lib/auth-helper";
-import { getUserByEmail, putUser } from "../../../lib/auth/auth-dao";
+import { getUserByEmail, putUser } from "../../../lib/dao/user-dao";
 import { connectMongo } from "../../../lib/mongo-helper"
 
 const MONGODB_DB = process.env.MONGODB_DB;
@@ -32,7 +32,7 @@ const handler = async (req: SignupApiRequest, res: SignupApiResponse) => {
     const client = await connectMongo();
     const dbuser = getUserByEmail(client, email);
     if (dbuser) {
-        res.status(422).json({ message: 'User already exist with same email'})
+        res.status(422).json({ message: 'User already exist with same email' })
         client.close();
         return;
     }

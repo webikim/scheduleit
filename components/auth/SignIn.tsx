@@ -1,4 +1,14 @@
-import { Box, Button, Checkbox, Container, FormControlLabel, Grid, Link, TextField, Typography } from '@mui/material';
+import {
+    Box,
+    Button,
+    Checkbox,
+    Container,
+    FormControlLabel,
+    Grid,
+    Link,
+    TextField,
+    Typography,
+} from '@mui/material';
 import React, { useContext } from 'react';
 import { signIn } from 'next-auth/react';
 import NotificationContext from '../../store/notification-context';
@@ -19,28 +29,30 @@ const SignIn = (props: SignInProps) => {
         const email = data.get('email');
         const password = data.get('password');
 
+        console.log('.. email = ', email, ', password = ', password);
+
         const response = await signIn('credentials', {
             redirect: false,
             email: email,
-            password: password
-        })
+            password: password,
+        });
 
         if (!response.ok) {
             notificationCtx.showNotification({
                 message: 'Signin failed.',
-                status: 'error'
-            })
+                status: 'error',
+            });
 
             return;
         }
 
-        router.replace("/");
+        router.replace('/');
 
         notificationCtx.showNotification({
             message: 'Signin success',
-            status: 'success'
-        })
-    }
+            status: 'success',
+        });
+    };
 
     return (
         <>
@@ -48,9 +60,9 @@ const SignIn = (props: SignInProps) => {
                 <Box
                     sx={{
                         marginTop: 3,
-                        display: "flex",
-                        flexDirection: "column",
-                        alignItems: "center",
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
                     }}
                 >
                     <Typography component="h1" variant="h5">
@@ -83,7 +95,9 @@ const SignIn = (props: SignInProps) => {
                             autoComplete="current-password"
                         />
                         <FormControlLabel
-                            control={<Checkbox value="remember" color="primary" />}
+                            control={
+                                <Checkbox value="remember" color="primary" />
+                            }
                             label="Remember me"
                         />
                         <Button
@@ -94,14 +108,18 @@ const SignIn = (props: SignInProps) => {
                         >
                             Sign In
                         </Button>
-                        <Grid container justifyContent='flex-end'>
+                        <Grid container justifyContent="flex-end">
                             {/* <Grid item xs>
                                 <Link href="#" variant="body2" onClick={ openForgot }>
                                     Forgot password?
                                 </Link>
                             </Grid> */}
                             <Grid item>
-                                <Link href="#" variant="body2" onClick={ () => props.setLogin(false) }>
+                                <Link
+                                    href="#"
+                                    variant="body2"
+                                    onClick={() => props.setLogin(false)}
+                                >
                                     {"Don't have an account? Sign Up"}
                                 </Link>
                             </Grid>
@@ -110,7 +128,7 @@ const SignIn = (props: SignInProps) => {
                 </Box>
             </Container>
         </>
-    )
-}
+    );
+};
 
 export default SignIn;
