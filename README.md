@@ -4,4 +4,4 @@ Base framework of this project is Next.js and database is mongodb
 
 try example in
 
-https://schedule-ivory.vercel.app/
+https://schedulev2.vercel.app/
